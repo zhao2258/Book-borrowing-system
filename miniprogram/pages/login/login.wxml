@@ -1,0 +1,13 @@
+<!--miniprogram/pages/login/login.wxml-->
+<view class="container">
+  <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <text style="margin:1rem">欢迎您：{{userInfo.nickName}}</text>
+    <view>
+      <button class="userinfo-nickname" bindtap="onGetOpenid">点击登陆</button>
+    </view>
+</view>

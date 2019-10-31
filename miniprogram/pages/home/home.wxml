@@ -1,0 +1,4 @@
+<!--miniprogram/pages/home/home.wxml-->
+<view>
+  <text>这里是首页</text>
+</view>

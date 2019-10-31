@@ -1,0 +1,10 @@
+<!--miniprogram/pages/me/me.wxml-->
+<view class="main">
+  <view class="header">
+    <view class="aa" style="background-image: url({{userInfo.avatarUrl}})" />
+      <!-- <cover-image style="width:200rpx" src="{{userInfo.avatarUrl}}"/> -->
+  </view>
+  <view class="content">
+    <button>退出登陆</button>
+  </view>
+</view>
