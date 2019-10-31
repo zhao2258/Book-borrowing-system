@@ -12,7 +12,8 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/home/home",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/BorrowBooks/BorrowBooks"
   ],
   "tabBar": {
     "color": "#cdcdcd",

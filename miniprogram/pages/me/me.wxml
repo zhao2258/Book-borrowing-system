@@ -2,9 +2,22 @@
 <view class="main">
   <view class="header">
     <view class="aa" style="background-image: url({{userInfo.avatarUrl}})" />
-      <!-- <cover-image style="width:200rpx" src="{{userInfo.avatarUrl}}"/> -->
   </view>
   <view class="content">
-    <button>退出登陆</button>
+      <view class="weui-cells weui-cells_after-title">
+            <navigator url="../BorrowBooks/BorrowBooks" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="../../images/buttonIcon/data.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view style="color:gray" class="weui-cell__bd">已借书籍</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" />
+            </navigator>
+            <navigator url="../login/login" open-type="redirect" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="../../images/buttonIcon/exit.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view style="color:gray" class="weui-cell__bd">退出登陆</view>
+            </navigator>
+      </view>
   </view>
 </view>
