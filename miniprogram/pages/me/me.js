@@ -13,9 +13,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('me',app.globalData.userInfo)
-    this.setData({
-      userInfo: app.globalData.userInfo
+    const db = wx.cloud.database()
+    const openid = app.globalData.openid
+    db.collection('users_Book').doc(openid).get()
+    .then(res => {
+      console.log('获取权限',res.data)
+      this.setData({
+        userInfo:res.data
+      })
     })
   },
 

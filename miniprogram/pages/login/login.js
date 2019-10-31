@@ -1,4 +1,5 @@
 const app = getApp()
+const moment = require('../../untils/moment.min.js')
 // miniprogram/pages/login/login.js
 Page({
 
@@ -20,25 +21,6 @@ Page({
       })
       return
     }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              console.log('用户信息',res)
-              app.globalData.userInfo = res.userInfo
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
-    })
   },
   onGetOpenid: function () {
     // 调用云函数
@@ -46,10 +28,34 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('数据opentID', res.result.openid)
         app.globalData.openid = res.result.openid
+        let openid = res.result.openid
+        console.log('openid',openid)
         wx.switchTab({
           url: '../home/home',
+        })
+        const db = wx.cloud.database()
+        db.collection('users_Book').doc(openid).get()
+        .then(res => {
+          db.collection('users_Book').doc(openid).update({
+            data: {
+              LandingTime: moment().valueOf()
+            },
+            success: function (res) {
+              console.log('更新成功',res)
+            }
+          })
+        })
+        .catch(res=>{
+          db.collection('users_Book').add({
+            data:{
+              ...app.globalData.userInfo,
+              LandingTime:moment().valueOf(),
+              isAdmin:false,
+              _id: openid,
+              isForbidden:false
+            }
+          })
         })
       },
       fail: err => {
@@ -71,7 +77,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 获取用户信息
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              app.globalData.userInfo = res.userInfo
+              this.setData({
+                avatarUrl: res.userInfo.avatarUrl,
+                userInfo: res.userInfo
+              })
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
