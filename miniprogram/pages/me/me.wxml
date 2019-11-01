@@ -13,7 +13,7 @@
                 <view class="weui-cell__ft weui-cell__ft_in-access" />
             </navigator>
 
-            <navigator wx:if="{{userInfo.isAdmin}}" url="../BorrowBooks/BorrowBooks" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{userInfo.isAdmin}}" url="../upload/upload" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="../../images/buttonIcon/upload.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>
@@ -21,7 +21,7 @@
                 <view class="weui-cell__ft weui-cell__ft_in-access" />
             </navigator>
 
-            <navigator wx:if="{{userInfo.isAdmin}}" url="../BorrowBooks/BorrowBooks" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{userInfo.isAdmin}}" url="../ManageUsers/ManageUsers" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="../../images/buttonIcon/admin.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>

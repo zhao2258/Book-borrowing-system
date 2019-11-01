@@ -8,6 +8,6 @@
     ></button>
     <text style="margin:1rem">欢迎您：{{userInfo.nickName}}</text>
     <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击登陆</button>
+      <button open-type="getUserInfo" class="userinfo-nickname" bindtap="onGetOpenid">点击登陆</button>
     </view>
 </view>

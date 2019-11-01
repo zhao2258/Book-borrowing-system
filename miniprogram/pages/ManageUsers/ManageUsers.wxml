@@ -1,0 +1,10 @@
+<!--pages/ManageUsers/ManageUsers.wxml-->
+<view class="main">
+    <navigator wx:key="{{index}}" wx:for="{{userData}}" url="../userDetail/userDetail?id={{item._id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+            <image we:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;" />
+        </view>
+        <view style="color:gray" class="weui-cell__bd">{{item.nickName}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" />
+    </navigator>
+</view>

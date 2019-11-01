@@ -1,4 +1,5 @@
 {
+  "cloud": true,
   "pages": [
     "pages/login/login",
     "pages/index/index",
@@ -13,7 +14,10 @@
     "pages/openapi/cloudid/cloudid",
     "pages/home/home",
     "pages/me/me",
-    "pages/BorrowBooks/BorrowBooks"
+    "pages/BorrowBooks/BorrowBooks",
+    "pages/upload/upload",
+    "pages/ManageUsers/ManageUsers",
+    "pages/userDetail/userDetail"
   ],
   "tabBar": {
     "color": "#cdcdcd",

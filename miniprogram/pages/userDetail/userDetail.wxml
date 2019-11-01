@@ -1,0 +1,31 @@
+<!--pages/userDetail/userDetail.wxml-->
+<view>
+    <view class="icon" style="background-image: url({{userData.avatarUrl}})" />
+    <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">用户昵称</view>
+                    <view class="weui-form-preview__value_in-hd">{{userData.nickName}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">上次登陆</view>
+                    <view class="weui-form-preview__value">{{LandingTime}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">违约记录</view>
+                    <view class="weui-form-preview__value">名字名字名字</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">逾期记录</view>
+                    <view class="weui-form-preview__value">长很长的名字很长很长的名字</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <!-- <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator> -->
+                <button class="weui-btn" wx:if="{{userData.isForbidden}}" type="primary" bindtap="onAllowModify" style="width:100%">允许借阅</button>
+                <button class="weui-btn" wx:else type="warn" bindtap="onModify" style="width:100%">禁止借阅</button>
+            </view>
+        </view>
+</view>
