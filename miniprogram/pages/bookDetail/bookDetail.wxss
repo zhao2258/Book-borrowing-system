@@ -1,1 +1,30 @@
 /* miniprogram/pages/bookDetail/bookDetail.wxss */
+.imageBox{
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.aa{
+  width: 200rpx;
+  height: 200rpx;
+  background-color: #eeeeee;
+  background-size: 100% 100%;
+  margin: 30rpx;
+}
+.header{
+  background-color: white;
+}
+.name{
+  display: block;
+  font-size: 1.2rem;
+  margin: 10rpx;
+  text-align: center;
+}
+.des{
+  display: block;
+  width: 100%;
+  color: gray;
+  text-indent: 2em;
+  padding: 15rpx 25rpx 35rpx 25rpx;
+}

@@ -1,3 +1,4 @@
+const app = getApp()
 // miniprogram/pages/home/home.js
 Page({
 
@@ -5,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    booksData:[]
+    booksData:[],
+    isAdmin:''
   },
 
   /**
@@ -29,7 +31,8 @@ Page({
     const db = wx.cloud.database()
     db.collection('Books').get().then(res => {
       this.setData({
-        booksData:res.data
+        booksData:res.data,
+        isAdmin: app.globalData.isAdmin
       })
     })
   },

@@ -6,21 +6,47 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bookDetail:{}
+    bookDetail:{},
+    isAdmin:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('globalData',app.globalData)
     let id = options.id
     const db = wx.cloud.database()
     db.collection('Books').doc(id).get().then(res=>{
+      console.log('shuji',res.data)
       this.setData({
         bookDetail:res.data
       })
     })
+  },
+
+  ReserveBook:function(e){
+    let { bookDetail } = this.data
+    console.log('订阅', e.detail.value, bookDetail)
+    bookDetail.isBorrow = e.detail.value
+    this.setData({
+      bookDetail
+    })
+    wx.cloud.callFunction({
+      name:'bookDetail',
+      data:{
+        id: bookDetail._id,
+        isBorrow: e.detail.value,
+        lowerShelf: bookDetail.lowerShelf
+      },
+      complete:res=>{
+        console.log('方法返回',res)
+      }
+    })
+  },
+
+  LowerShelfBook:function(e){
+    let { bookDetail } = this.data
+    console.log('下架', e.detail.value, bookDetail)
   },
 
   /**
@@ -34,7 +60,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isAdmin: app.globalData.isAdmin
+    })
   },
 
   /**

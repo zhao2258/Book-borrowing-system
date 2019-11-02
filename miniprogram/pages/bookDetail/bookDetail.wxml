@@ -1,4 +1,28 @@
 <!--miniprogram/pages/bookDetail/bookDetail.wxml-->
-<view>
-  
+<!--miniprogram/pages/me/me.wxml-->
+<view class="main">
+  <view class="header">
+    <view class="imageBox">
+        <view class="aa" wx:for="{{bookDetail.files}}" wx:key="{{index}}" style="background-image: url({{item}})" /> 
+    </view>
+    <text class="name">{{bookDetail.bookName}}</text>
+    <text class="des">{{bookDetail.bookDes}}</text>
+  </view>
+  <view class="content">
+      <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access">
+                <view style="color:gray" class="weui-cell__bd">预定该书籍</view>
+                <view class="weui-cell__ft">
+                  <switch bindchange="ReserveBook" checked="{{bookDetail.isBorrow}}"/>
+                </view>
+            </view>
+            <view wx:if="{{isAdmin}}" class="weui-cell weui-cell_access">
+                <view style="color:gray" class="weui-cell__bd">下架该书籍</view>
+                <view class="weui-cell__ft">
+                  <switch bindchange="LowerShelfBook" checked="{{bookDetail.lowerShelf}}"/>
+                </view>
+            </view>
+      </view>
+  </view>
 </view>
+

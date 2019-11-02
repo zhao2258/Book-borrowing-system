@@ -49,7 +49,7 @@ Page({
                         LandingTime: moment().valueOf()
                       },
                       success: function (res) {
-                        console.log('更新成功', res)
+                        // console.log('更新成功', res)
                       }
                     })
                   }
