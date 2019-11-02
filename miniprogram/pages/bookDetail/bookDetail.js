@@ -1,18 +1,26 @@
-// miniprogram/pages/home/home.js
+const app = getApp()
+// miniprogram/pages/bookDetail/bookDetail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    booksData:[]
+    bookDetail:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log('globalData',app.globalData)
+    let id = options.id
+    const db = wx.cloud.database()
+    db.collection('Books').doc(id).get().then(res=>{
+      this.setData({
+        bookDetail:res.data
+      })
+    })
   },
 
   /**
@@ -26,12 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const db = wx.cloud.database()
-    db.collection('Books').get().then(res => {
-      this.setData({
-        booksData:res.data
-      })
-    })
+
   },
 
   /**

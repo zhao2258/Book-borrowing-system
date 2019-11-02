@@ -17,7 +17,8 @@
     "pages/BorrowBooks/BorrowBooks",
     "pages/upload/upload",
     "pages/ManageUsers/ManageUsers",
-    "pages/userDetail/userDetail"
+    "pages/userDetail/userDetail",
+    "pages/bookDetail/bookDetail"
   ],
   "tabBar": {
     "color": "#cdcdcd",

@@ -36,6 +36,7 @@ Page({
         const db = wx.cloud.database()
         db.collection('users_Book').doc(openid).get()
         .then(res => {
+          app.globalData.isAdmin = res.data.isAdmin
           wx.getSetting({
             success: res => {
               if (res.authSetting['scope.userInfo']) {
@@ -58,6 +59,7 @@ Page({
           })
         })
         .catch(res=>{
+          app.globalData.isAdmin = false
           wx.getSetting({
             success: res => {
               if (res.authSetting['scope.userInfo']) {

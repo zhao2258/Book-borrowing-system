@@ -1,4 +1,10 @@
 <!--miniprogram/pages/home/home.wxml-->
-<view>
-  <text>这里是首页</text>
+<view class="main">
+  <navigator url="../bookDetail/bookDetail?id={{item._id}}" wx:for="{{booksData}}" wx:key="{{index}}">
+    <view class="box">
+      <view class="icon" style="background-image: url({{item.files[0]}})" />
+      <text class="name">{{item.bookName}}</text>
+      <text class="des">{{item.bookDes}}</text>
+    </view>
+  </navigator>
 </view>
