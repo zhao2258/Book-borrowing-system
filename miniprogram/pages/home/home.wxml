@@ -1,6 +1,6 @@
 <!--miniprogram/pages/home/home.wxml-->
 <view class="main">
-  <navigator wx:if="{{isAdmin || !item.lowerShelf}}" url="../bookDetail/bookDetail?id={{item._id}}" wx:for="{{booksData}}" wx:key="{{index}}">
+  <navigator wx:if="{{isAdmin || !item.lowerShelf}}" hidden="{{!isAdmin && item.isBorrow}}" url="../bookDetail/bookDetail?id={{item._id}}" wx:for="{{booksData}}" wx:key="{{index}}">
     <view class="box">
       <view class="icon" style="background-image: url({{item.files[0]}})" />
       <text class="name">{{item.bookName}}</text>

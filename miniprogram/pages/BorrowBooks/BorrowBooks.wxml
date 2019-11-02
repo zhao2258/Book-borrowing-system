@@ -1,2 +1,9 @@
 <!--pages/BorrowBooks/BorrowBooks.wxml-->
-<text>pages/BorrowBooks/BorrowBooks.wxml</text>
+<view class="main">
+  <view class="box" wx:for="{{BorrowBooksData}}" wx:key="{{index}}">
+    <view class="icon" style="background-image: url({{item.files[0]}})" />
+    <text class="name">{{item.bookName}}</text>
+    <text class="des">{{item.bookDes}}</text>
+  </view>
+</view>
+

@@ -17,7 +17,6 @@ Page({
     const openid = app.globalData.openid
     db.collection('users_Book').doc(openid).get()
     .then(res => {
-      console.log('获取权限',res.data)
       this.setData({
         userInfo:res.data
       })

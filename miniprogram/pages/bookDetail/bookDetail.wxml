@@ -13,9 +13,10 @@
             <view class="weui-cell weui-cell_access">
                 <view style="color:gray" class="weui-cell__bd">预定该书籍</view>
                 <view class="weui-cell__ft">
-                  <switch bindchange="ReserveBook" checked="{{bookDetail.isBorrow}}"/>
+                  <switch disabled="{{isForbidden}}" bindchange="ReserveBook" checked="{{bookDetail.isBorrow}}"/>
                 </view>
             </view>
+            <text class="warnTitle" wx:if="{{isForbidden}}">您的账号被限制，请联系管理员！</text>
             <view wx:if="{{isAdmin}}" class="weui-cell weui-cell_access">
                 <view style="color:gray" class="weui-cell__bd">下架该书籍</view>
                 <view class="weui-cell__ft">

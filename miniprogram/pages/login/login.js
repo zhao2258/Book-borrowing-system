@@ -37,6 +37,7 @@ Page({
         db.collection('users_Book').doc(openid).get()
         .then(res => {
           app.globalData.isAdmin = res.data.isAdmin
+          app.globalData.isForbidden = res.data.isForbidden
           wx.getSetting({
             success: res => {
               if (res.authSetting['scope.userInfo']) {
@@ -50,6 +51,11 @@ Page({
                       },
                       success: function (res) {
                         // console.log('更新成功', res)
+                        // db.collection('BorrowBooks').add({
+                        //   data: {
+                        //     _id: openid,
+                        //   }
+                        // })
                       }
                     })
                   }
@@ -60,6 +66,7 @@ Page({
         })
         .catch(res=>{
           app.globalData.isAdmin = false
+          app.globalData.isForbidden = false
           wx.getSetting({
             success: res => {
               if (res.authSetting['scope.userInfo']) {
@@ -74,7 +81,15 @@ Page({
                         _id: openid,
                         isForbidden:false
                       }
+                    }).then(data=>{
+                      db.collection('BorrowBooks').add({
+                        data: {
+                          _id: openid,
+                          BorrowBooksData:[],
+                        }
+                      })
                     })
+                    
                   }
                 })
               }

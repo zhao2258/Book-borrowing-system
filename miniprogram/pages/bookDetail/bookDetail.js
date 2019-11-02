@@ -7,7 +7,8 @@ Page({
    */
   data: {
     bookDetail:{},
-    isAdmin:''
+    isAdmin:'',
+    isForbidden:'',
   },
 
   /**
@@ -17,7 +18,6 @@ Page({
     let id = options.id
     const db = wx.cloud.database()
     db.collection('Books').doc(id).get().then(res=>{
-      console.log('shuji',res.data)
       this.setData({
         bookDetail:res.data
       })
@@ -26,7 +26,6 @@ Page({
 
   ReserveBook:function(e){
     let { bookDetail } = this.data
-    console.log('订阅', e.detail.value, bookDetail)
     bookDetail.isBorrow = e.detail.value
     this.setData({
       bookDetail
@@ -39,14 +38,52 @@ Page({
         lowerShelf: bookDetail.lowerShelf
       },
       complete:res=>{
-        console.log('方法返回',res)
+        const db = wx.cloud.database()
+        let BorrowBooksData 
+        db.collection('BorrowBooks').doc(app.globalData.openid).get().then(res=>{
+          BorrowBooksData = res.data.BorrowBooksData
+          if(e.detail.value){
+            BorrowBooksData.push(bookDetail)
+          } else {
+            BorrowBooksData.map((item,index) => {
+              if (item._id == bookDetail._id){
+                BorrowBooksData.splice(index,1)
+              }
+            })
+          }
+          wx.cloud.callFunction({
+            name: 'BorrowBooks',
+            data: {
+              BorrowBooksData,
+              id: app.globalData.openid
+            },
+            complete: res => {
+        
+              // console.log('callfunction test result:', res)
+            }
+          })
+        })
       }
     })
   },
 
   LowerShelfBook:function(e){
     let { bookDetail } = this.data
-    console.log('下架', e.detail.value, bookDetail)
+    bookDetail.lowerShelf = e.detail.value
+    this.setData({
+      bookDetail
+    })
+    wx.cloud.callFunction({
+      name: 'bookDetail',
+      data: {
+        id: bookDetail._id,
+        isBorrow: bookDetail.isBorrow,
+        lowerShelf: e.detail.value
+      },
+      complete: res => {
+        // console.log('方法返回', res)
+      }
+    })
   },
 
   /**
@@ -61,7 +98,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isAdmin: app.globalData.isAdmin
+      isAdmin: app.globalData.isAdmin,
+      isForbidden: app.globalData.isForbidden
     })
   },
 

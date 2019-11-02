@@ -12,6 +12,13 @@
   background-size: 100% 100%;
   margin: 30rpx;
 }
+.warnTitle{
+  color: red;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 35rpx;
+}
 .header{
   background-color: white;
 }

@@ -1,3 +1,4 @@
+const app = getApp()
 // pages/BorrowBooks/BorrowBooks.js
 Page({
 
@@ -5,14 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    BorrowBooksData:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const db = wx.cloud.database()
+    let vm = this
+    db.collection('BorrowBooks').doc(app.globalData.openid).get().then(res=>{
+      console.log('res借的书籍',res)
+      this.setData({
+        BorrowBooksData: res.data.BorrowBooksData
+      })
+    })
   },
 
   /**

@@ -1,1 +1,37 @@
 /* pages/BorrowBooks/BorrowBooks.wxss */
+.main{
+  column-count:2;
+  column-gap: 0;
+}
+.box{
+  background: white;
+  margin: 10rpx;
+  break-inside: avoid;
+  border-radius: 10rpx;
+  text-align: center;
+  padding-top: 25rpx;
+  padding-bottom: 15rpx;
+}
+.icon{
+  width: 200rpx;
+  height: 200rpx;
+  background-size: 100% 100%;
+  margin: 0 auto;
+  background-color: #eeeeee;
+}
+.name{
+  display: block;
+  font-size: 1.2rem;
+  margin: 10rpx;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.des{
+  display: block;
+  width: 100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  color: gray;
+}
