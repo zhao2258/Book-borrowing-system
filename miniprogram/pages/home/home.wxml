@@ -14,6 +14,10 @@
             <swiper-item>
             <cover-image src="../../images/homeImage/2.jpeg" />
             </swiper-item>
+
+            <swiper-item>
+            <cover-image src="../../images/homeImage/3.jpeg" />
+            </swiper-item>
         </swiper>
   </view>
   <view class="searchBox">

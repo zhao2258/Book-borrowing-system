@@ -47,12 +47,12 @@ Page({
     });
   },
   inputTyping: function (e) {
-    console.log('输入的值',e.detail.value)
     const db = wx.cloud.database()
     db.collection('Books').where({
-      bookName:e.detail.value
+      bookName: db.RegExp({
+        regexp:e.detail.value
+      })
     }).get().then(res => {
-      console.log('搜索得到的值',res)
       this.setData({
         booksData: res.data,
         isAdmin: app.globalData.isAdmin
