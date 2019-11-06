@@ -51,11 +51,7 @@ Page({
                       },
                       success: function (res) {
                         // console.log('更新成功', res)
-                        // db.collection('BorrowBooks').add({
-                        //   data: {
-                        //     _id: openid,
-                        //   }
-                        // })
+                        
                       }
                     })
                   }
@@ -84,6 +80,7 @@ Page({
                     }).then(data=>{
                       db.collection('BorrowBooks').add({
                         data: {
+                          ...res.userInfo,
                           _id: openid,
                           BorrowBooksData:[],
                         }

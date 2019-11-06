@@ -1,4 +1,7 @@
 /* miniprogram/pages/home/home.wxss */
+.searchBox{
+  margin-bottom: 15rpx;
+}
 .main{
   column-count:2;
   column-gap: 0;

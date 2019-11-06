@@ -1,9 +1,13 @@
 <!--pages/BorrowBooks/BorrowBooks.wxml-->
-<view class="main">
-  <view class="box" wx:for="{{BorrowBooksData}}" wx:key="{{index}}">
-    <view class="icon" style="background-image: url({{item.files[0]}})" />
-    <text class="name">{{item.bookName}}</text>
-    <text class="des">{{item.bookDes}}</text>
+<view>
+    <text class="title" wx:if="{{BorrowBooksData.length == 0}}">你还没有借书哦，快点去借一本看看吧！</text>
+  <view class="main">
+    <view class="box" wx:for="{{BorrowBooksData}}" wx:key="{{index}}">
+      <view class="icon" style="background-image: url({{item.files[0]}})" />
+      <text class="name">{{item.bookName}}</text>
+      <text class="des">{{item.bookDes}}</text>
+    </view>
   </view>
 </view>
+
 
