@@ -23,6 +23,15 @@ Page({
       })
     })
   },
+  previewImg: function (e) { //预览图片
+    let imgData = e.currentTarget.dataset.img;
+    wx.previewImage({
+      //当前显示图片
+      current: imgData,
+      //所有图片
+      urls: imgData
+    })
+  },
 
   ReserveBook:function(e){
     let { bookDetail } = this.data
@@ -59,7 +68,6 @@ Page({
             },
             complete: res => {
         
-              // console.log('callfunction test result:', res)
             }
           })
         })

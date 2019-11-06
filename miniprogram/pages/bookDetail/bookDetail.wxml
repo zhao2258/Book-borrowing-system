@@ -3,7 +3,7 @@
 <view class="main">
   <view class="header">
     <view class="imageBox">
-        <view class="aa" wx:for="{{bookDetail.files}}" wx:key="{{index}}" style="background-image: url({{item}})" /> 
+        <image class="aa" data-img='{{[item]}}' bindtap="previewImg" wx:for="{{bookDetail.fileIDs}}" wx:key="{{index}}" src='{{item}}' mode='aspectFill'></image>
     </view>
     <text class="name">{{bookDetail.bookName}}</text>
     <text class="des">{{bookDetail.bookDes}}</text>

@@ -26,9 +26,9 @@
   display: block;
   font-size: 1.2rem;
   margin: 10rpx;
-  white-space:nowrap;
+  /* white-space:nowrap;
   overflow:hidden;
-  text-overflow:ellipsis;
+  text-overflow:ellipsis; */
 }
 .des{
   display: block;

@@ -82,6 +82,7 @@ Page({
   onShow: function () {
     const db = wx.cloud.database()
     db.collection('Books').get().then(res => {
+      console.log('首页获取的图片',res.data)
       this.setData({
         booksData:res.data,
         isAdmin: app.globalData.isAdmin

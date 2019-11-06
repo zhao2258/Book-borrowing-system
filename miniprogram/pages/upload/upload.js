@@ -6,6 +6,7 @@ Page({
    */
   data: {
     files: [],
+    fileIDs: [],
     bookName:'',
     bookDes:'',
   },
@@ -56,31 +57,88 @@ Page({
     })
   },
   handleSubmit:function(){
-    let { files,bookName,bookDes } = this.data
-    console.log('提交', files, bookName, bookDes)
+      wx.showLoading({
+        title: '提交中',
+      })
     const db = wx.cloud.database()
-    db.collection('Books').add({
-      data:{
-        files, 
-        bookName, 
-        bookDes,
-        isBorrow:false,
-        lowerShelf:false,
+    const promiseArr = []
+    console.log('this.data.files', this.data.files)
+      //只能一张张上传 遍历临时的图片数组
+    for (let i = 0; i < this.data.files.length; i++) {
+        let filePath = this.data.files[i]
+        let suffix = /\.[^\.]+$/.exec(filePath)[0]; // 正则表达式，获取文件扩展名
+        console.log('拓展闽',suffix)
+        //在每次上传的时候，就往promiseArr里存一个promise，只有当所有的都返回结果时，才可以继续往下执行
+        promiseArr.push(new Promise((reslove, reject) => {
+          wx.cloud.uploadFile({
+            cloudPath: new Date().getTime() + suffix,
+            filePath: filePath, // 文件路径
+          }).then(res => {
+            // get resource ID
+            console.log(res.fileID)
+            this.setData({
+              fileIDs: this.data.fileIDs.concat(res.fileID)
+            })
+            reslove()
+          }).catch(error => {
+            console.log(error)
+          })
+        }))
       }
-    }).then(res=>{
-      wx.showToast({
-        title: '图书上传成功',
-        icon: 'success',
-        duration: 2000
+      Promise.all(promiseArr).then(res => {
+        let { files, bookName, bookDes } = this.data
+        db.collection('Books').add({
+          data: {
+            files,
+            bookName, 
+            bookDes,
+            isBorrow:false,
+            lowerShelf:false,
+            fileIDs: this.data.fileIDs //只有当所有的图片都上传完毕后，这个值才能被设置，但是上传文件是一个异步的操作，你不知道他们什么时候把fileid返回，所以就得用promise.all
+          }
+        })
+          .then(res => {
+            console.log(res)
+            wx.hideLoading()
+            wx.showToast({
+              title: '提交成功',
+            })
+            this.setData({
+              files: [],
+              bookName: '',
+              bookDes: '',
+              fileIDs: [],
+            })
+          })
+          .catch(error => {
+            console.log(error)
+          })
       })
-      this.setData({
-        files: [],
-        bookName: '',
-        bookDes: '',
-      })
-    }).catch(res=>{
-      console.log('上传失败',res)
-    })
+    // let { files,bookName,bookDes } = this.data
+    // console.log('提交', files, bookName, bookDes)
+    // const db = wx.cloud.database()
+    // db.collection('Books').add({
+    //   data:{
+    //     files, 
+    //     bookName, 
+    //     bookDes,
+    //     isBorrow:false,
+    //     lowerShelf:false,
+    //   }
+    // }).then(res=>{
+    //   wx.showToast({
+    //     title: '图书上传成功',
+    //     icon: 'success',
+    //     duration: 2000
+    //   })
+    //   this.setData({
+    //     files: [],
+    //     bookName: '',
+    //     bookDes: '',
+    //   })
+    // }).catch(res=>{
+    //   console.log('上传失败',res)
+    // })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
