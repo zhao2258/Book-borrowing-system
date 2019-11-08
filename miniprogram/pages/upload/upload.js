@@ -9,6 +9,7 @@ Page({
     fileIDs: [],
     bookName:'',
     bookDes:'',
+    scanCode:''
   },
 
   /**
@@ -114,31 +115,26 @@ Page({
             console.log(error)
           })
       })
-    // let { files,bookName,bookDes } = this.data
-    // console.log('提交', files, bookName, bookDes)
-    // const db = wx.cloud.database()
-    // db.collection('Books').add({
-    //   data:{
-    //     files, 
-    //     bookName, 
-    //     bookDes,
-    //     isBorrow:false,
-    //     lowerShelf:false,
-    //   }
-    // }).then(res=>{
-    //   wx.showToast({
-    //     title: '图书上传成功',
-    //     icon: 'success',
-    //     duration: 2000
-    //   })
-    //   this.setData({
-    //     files: [],
-    //     bookName: '',
-    //     bookDes: '',
-    //   })
-    // }).catch(res=>{
-    //   console.log('上传失败',res)
-    // })
+  },
+  scanCode:function(){
+    let vm = this
+    wx.scanCode({
+      success(res) {
+        console.log('扫码结果', res.result)
+        wx.cloud.callFunction({
+          name: 'ISBN',
+          data: {
+            ISBNCode: res.result
+          },
+          complete: res => {
+            console.log('ISBN方法返回', res.result)
+          }
+        })
+        vm.setData({
+          scanCode:JSON.stringify(res)
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

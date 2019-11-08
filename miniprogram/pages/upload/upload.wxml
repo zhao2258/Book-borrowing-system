@@ -50,8 +50,8 @@
             </view>
         </view>
     </view>
-
     <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="handleSubmit">上传</button>
+        <button class="weui-btn" type="primary" bindtap="scanCode">扫码上传</button>
     </view>
 </view>

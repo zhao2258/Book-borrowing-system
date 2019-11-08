@@ -14,9 +14,11 @@ Page({
    */
   onLoad: function (options) {
     const db = wx.cloud.database()
-    db.collection('users_Book').where({
-      isAdmin:false
-    }).get().then(res=>{
+    db.collection('users_Book')
+    // .where({
+    //   isAdmin:false
+    // })
+    .get().then(res=>{
       console.log('获取用户信息',res.data)
       this.setData({
         userData:res.data
