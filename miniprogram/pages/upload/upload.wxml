@@ -14,12 +14,12 @@
         </view>
         <view class="weui-cell ">
             <view class="weui-cell__bd">
-                <input value="{{bookName}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版社" />
+                <input value="{{press}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版社" />
             </view>
         </view>
         <view class="weui-cell ">
             <view class="weui-cell__bd">
-                <input value="{{title}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版年" />
+                <input value="{{publicationYear}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版年" />
             </view>
         </view>
     </view>

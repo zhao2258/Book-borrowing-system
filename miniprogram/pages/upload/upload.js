@@ -9,7 +9,7 @@ Page({
     fileIDs: [],
     bookName:'',
     bookDes:'',
-    scanCode:'', //扫码结果
+    scanCode:null, //扫码结果
     bookInformation:{}, //扫码结果查询的数据
     press:'' ,//书籍出版社
     publicationYear:'' , //书籍出版年
@@ -47,6 +47,7 @@ Page({
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
+          console.log('上传图片的参数', that.data.files.concat(res.tempFilePaths))
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           that.setData({
             files: that.data.files.concat(res.tempFilePaths)
@@ -67,9 +68,10 @@ Page({
       })
     const db = wx.cloud.database()
     const promiseArr = []
-    console.log('this.data.files', this.data.files)
+    let { files, bookName, bookDes, bookAuthor, publicationYear, press, scanCode } = this.data
+    if (!scanCode){ //判断是不是扫码新增的数据
       //只能一张张上传 遍历临时的图片数组
-    for (let i = 0; i < this.data.files.length; i++) {
+      for (let i = 0; i < this.data.files.length; i++) {
         let filePath = this.data.files[i]
         let suffix = /\.[^\.]+$/.exec(filePath)[0]; // 正则表达式，获取文件扩展名
         console.log('拓展闽',suffix)
@@ -91,12 +93,14 @@ Page({
         }))
       }
       Promise.all(promiseArr).then(res => {
-        let { files, bookName, bookDes } = this.data
         db.collection('Books').add({
           data: {
             files,
             bookName, 
             bookDes,
+            bookAuthor,
+            publicationYear,
+            press,
             isBorrow:false,
             lowerShelf:false,
             fileIDs: this.data.fileIDs //只有当所有的图片都上传完毕后，这个值才能被设置，但是上传文件是一个异步的操作，你不知道他们什么时候把fileid返回，所以就得用promise.all
@@ -113,13 +117,54 @@ Page({
               bookName: '',
               bookDes: '',
               fileIDs: [],
+              scanCode: '', //扫码结果
+              bookInformation: {}, //扫码结果查询的数据
+              press: '',//书籍出版社
+              publicationYear: '', //书籍出版年
+              bookAuthor: '', //书籍作者
             })
           })
           .catch(error => {
             console.log(error)
           })
       })
+    } else {
+      db.collection('Books').add({
+        data: {
+          files,
+          bookName,
+          bookDes,
+          bookAuthor,
+          publicationYear,
+          press,
+          isBorrow: false,
+          lowerShelf: false,
+        }
+      })
+        .then(res => {
+          console.log(res)
+          wx.hideLoading()
+          wx.showToast({
+            title: '提交成功',
+          })
+          this.setData({
+            files: [],
+            bookName: '',
+            bookDes: '',
+            fileIDs: [],
+            scanCode: '', //扫码结果
+            bookInformation: {}, //扫码结果查询的数据
+            press: '',//书籍出版社
+            publicationYear: '', //书籍出版年
+            bookAuthor: '', //书籍作者
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
+
   scanCode:function(){
     let vm = this
     wx.scanCode({
@@ -131,12 +176,21 @@ Page({
           },
           complete: res => {
             console.log('ISBN方法返回', JSON.parse(res.result))
-            console.log('abstract', JSON.parse(res.result).abstract.split(' / '))
             let abstract = JSON.parse(res.result).abstract.split(' / ')
+            let bookAuthor = ''
+            abstract.map((item,index)=>{
+              if(index < abstract.length - 4){
+                bookAuthor = bookAuthor + '/' + item
+              }
+            })
             // 从后往前找
             vm.setData({
               bookInformation: JSON.parse(res.result),
-
+              bookAuthor,
+              files: [JSON.parse(res.result).cover_url],
+              bookName: JSON.parse(res.result).title,
+              publicationYear: abstract[abstract.length -2 ],
+              press: abstract[abstract.length - 3]
             })
           }
         })

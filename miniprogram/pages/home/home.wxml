@@ -46,7 +46,7 @@
 <view class="main">
     <navigator wx:if="{{isAdmin || !item.lowerShelf}}" hidden="{{!isAdmin && item.isBorrow}}" url="../bookDetail/bookDetail?id={{item._id}}" wx:for="{{booksData}}" wx:key="{{index}}">
       <view class="box">
-        <image class="icon" src='{{item.fileIDs[0]}}' mode='aspectFill'></image>
+        <image class="icon" src='{{item.fileIDs[0] ? item.fileIDs[0] : item.files[0]}}' mode='aspectFill'></image>
         <text class="name">{{item.bookName}}</text>
         <text class="des">{{item.bookDes}}</text>
       </view>
