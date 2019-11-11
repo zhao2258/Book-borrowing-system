@@ -9,7 +9,11 @@ Page({
     fileIDs: [],
     bookName:'',
     bookDes:'',
-    scanCode:''
+    scanCode:'', //扫码结果
+    bookInformation:{}, //扫码结果查询的数据
+    press:'' ,//书籍出版社
+    publicationYear:'' , //书籍出版年
+    bookAuthor:'', //书籍作者
   },
 
   /**
@@ -120,14 +124,20 @@ Page({
     let vm = this
     wx.scanCode({
       success(res) {
-        console.log('扫码结果', res.result)
         wx.cloud.callFunction({
           name: 'ISBN',
           data: {
             ISBNCode: res.result
           },
           complete: res => {
-            console.log('ISBN方法返回', res.result)
+            console.log('ISBN方法返回', JSON.parse(res.result))
+            console.log('abstract', JSON.parse(res.result).abstract.split(' / '))
+            let abstract = JSON.parse(res.result).abstract.split(' / ')
+            // 从后往前找
+            vm.setData({
+              bookInformation: JSON.parse(res.result),
+
+            })
           }
         })
         vm.setData({

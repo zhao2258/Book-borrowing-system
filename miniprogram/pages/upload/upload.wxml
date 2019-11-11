@@ -7,6 +7,21 @@
                 <input value="{{bookName}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入书名" />
             </view>
         </view>
+        <view class="weui-cell ">
+            <view class="weui-cell__bd">
+                <input value="{{bookAuthor}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入作者" />
+            </view>
+        </view>
+        <view class="weui-cell ">
+            <view class="weui-cell__bd">
+                <input value="{{bookName}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版社" />
+            </view>
+        </view>
+        <view class="weui-cell ">
+            <view class="weui-cell__bd">
+                <input value="{{title}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版年" />
+            </view>
+        </view>
     </view>
 
     <view class="weui-cells__title"></view>
