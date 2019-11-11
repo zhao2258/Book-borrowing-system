@@ -34,6 +34,24 @@ Page({
       bookDes:value
     })
   },
+  onBookAuthor:function(e){
+    let value = e.detail.value
+    this.setData({
+      bookAuthor:value
+    })
+  },
+  onBookPress:function(e){
+    let value = e.detail.value
+    this.setData({
+      press:value
+    })
+  },
+  onPublicationYear:function(e){
+    let value = e.detail.value
+    this.setData({
+      publicationYear:value
+    })
+  },
   chooseImage: function (e) {
     if(this.data.files.length >= 2){
       wx.showToast({
@@ -167,6 +185,9 @@ Page({
 
   scanCode:function(){
     let vm = this
+    wx.showLoading({
+      title: '数据查询中，，，',
+    })
     wx.scanCode({
       success(res) {
         wx.cloud.callFunction({
@@ -182,6 +203,10 @@ Page({
               if(index < abstract.length - 4){
                 bookAuthor = bookAuthor + '/' + item
               }
+            })
+            wx.hideLoading()
+            wx.showToast({
+              title: '数据获取成功！',
             })
             // 从后往前找
             vm.setData({

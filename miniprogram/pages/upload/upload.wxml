@@ -9,17 +9,17 @@
         </view>
         <view class="weui-cell ">
             <view class="weui-cell__bd">
-                <input value="{{bookAuthor}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入作者" />
+                <input value="{{bookAuthor}}" bindblur='onBookAuthor' bindconfirm='onBookAuthor' bindinput='onBookAuthor' class="weui-input" placeholder="请输入作者" />
             </view>
         </view>
         <view class="weui-cell ">
             <view class="weui-cell__bd">
-                <input value="{{press}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版社" />
+                <input value="{{press}}" bindblur='onBookPress' bindconfirm='onBookPress' bindinput='onBookPress' class="weui-input" placeholder="请输入出版社" />
             </view>
         </view>
         <view class="weui-cell ">
             <view class="weui-cell__bd">
-                <input value="{{publicationYear}}" bindblur='bookName' bindconfirm='bookName' bindinput='bookName' class="weui-input" placeholder="请输入出版年" />
+                <input value="{{publicationYear}}" bindblur='onPublicationYear' bindconfirm='onPublicationYear' bindinput='onPublicationYear' class="weui-input" placeholder="请输入出版年" />
             </view>
         </view>
     </view>
@@ -67,6 +67,6 @@
     </view>
     <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="handleSubmit">上传</button>
-        <button class="weui-btn" type="primary" bindtap="scanCode">扫码上传</button>
+        <button class="weui-btn" type="primary" bindtap="scanCode">扫码添加书籍</button>
     </view>
 </view>

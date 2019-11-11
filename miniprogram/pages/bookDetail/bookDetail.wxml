@@ -6,7 +6,10 @@
         <image class="aa" data-img='{{[item]}}' bindtap="previewImg" wx:for="{{bookDetail.fileIDs ? bookDetail.fileIDs : bookDetail.files}}" wx:key="{{index}}" src='{{item}}' mode='aspectFill'></image>
     </view>
     <text class="name">{{bookDetail.bookName}}</text>
-    <text class="des">{{bookDetail.bookDes}}</text>
+    <text class="des">作者：{{bookDetail.bookAuthor}}</text>
+    <text class="des">出版商：{{bookDetail.press}}</text>
+    <text class="des">出版年{{bookDetail.publicationYear}}</text>
+    <text class="des">简介：{{bookDetail.bookDes}}</text>
   </view>
   <view class="content">
       <view class="weui-cells weui-cells_after-title">
